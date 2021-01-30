@@ -69,6 +69,7 @@
 					$_SESSION['email']=$row['email'];
 					$_SESSION['name']=$row['name'];
 					$_SESSION['u_id']=$row['id'];
+					$_SESSION['auth_token']=$row['token'];
 					$_SESSION['status']=true;
 					
                     header("location:index.php");
