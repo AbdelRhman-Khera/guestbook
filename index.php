@@ -27,7 +27,7 @@
 					<!-- start content -->
 					<div id="content">
 						<div class="post">
-							<h1 class="title">Welcome to 
+							<h1 class="title">Welcome  
 							<?php 
 								if(isset($_SESSION['status']))
 								{
@@ -35,7 +35,7 @@
 								}
 								else
 								{	
-									echo 'guestbook';
+									echo 'to guestbook';
 								}
 							?>
 							</h1>

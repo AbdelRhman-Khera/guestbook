@@ -53,8 +53,27 @@
 			$query="insert into users(name,email,password,token,created_at)
 			values('$name','$email','$password','$token','$created_at')";
 			
-			mysqli_query($conn,$query) or die("Can't Execute Query...");
-			header("location:register.php?ok=1");
+            mysqli_query($conn,$query) or die("Can't Execute Query...");
+
+            $q="select * from users where email='$email'";
+			
+			$res=mysqli_query($conn,$q) or die("wrong query");
+			
+			$row=mysqli_fetch_assoc($res);
+			
+			if(!empty($row))
+			{
+				if(password_verify ( $_POST['password'], $row['password'] ))
+				{
+					$_SESSION=array();
+					$_SESSION['email']=$row['email'];
+					$_SESSION['name']=$row['name'];
+					$_SESSION['u_id']=$row['id'];
+					$_SESSION['status']=true;
+					
+                    header("location:index.php");
+                }
+            }
 		}
 	}
 	else
