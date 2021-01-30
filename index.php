@@ -98,7 +98,7 @@ textarea { display: block; margin-bottom: 10px; }
                     </form>
                     </div>
                     <?php
-                     $q="select user_name,msg,id from msgs ORDER by created_at desc";
+                     $q="select * from msgs ORDER by created_at desc";
 			
                      $res=mysqli_query($conn,$q) or die("wrong query");
                      
@@ -106,6 +106,13 @@ textarea { display: block; margin-bottom: 10px; }
                          echo '<div class="col-md-6 col-md-offset-3 post">';
                          echo '<h2>'.$row['user_name'].'</h2>';
                          echo '<p>'.$row['msg'].'</p>';
+                         if (isset($_SESSION['status'])) {
+
+                             if ($row['user_id'] == $_SESSION['u_id']) {
+                                echo '<a href="deletemsg.php?sid='.$row['id'].'">delete</a>';
+                             }
+                         }
+                         
                          echo '</div>';
                      }
                     ?>
