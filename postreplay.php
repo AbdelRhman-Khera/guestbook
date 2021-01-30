@@ -34,14 +34,15 @@ if(isset($_SESSION['status']))
             $msg=$_POST['msg'];
 			$user_id=$_SESSION['u_id'];
 			$user_name=$_SESSION['name'];
+			$msg_id=$_POST['msg_id'];
             $created_at=$now;
             
             
-			$query="insert into msgs(user_id,user_name,msg,created_at)
-			values('$user_id','$user_name','$msg','$created_at')";
+			$query="insert into replies(user_id,user_name,replay,created_at,msg_id)
+			values('$user_id','$user_name','$msg','$created_at','$msg_id')";
 			
             mysqli_query($conn,$query) or die("Can't Execute Query...");
-            header("location:index.php");
+            header("location:msg.php?sid=".$_POST['msg_id']);
 			
 		}
 	

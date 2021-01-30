@@ -15,7 +15,11 @@ require('includes/config.php');
 		{
 			$msg[]="Password Incorrect........";
 		}
-		
+        
+        // check the validation of csrf token
+        if (!hash_equals($_SESSION['token'], $_POST['csrf_token'])) {
+            $msg.="<li>Please try again later";
+        }
 		
 		if(!empty($msg))
 		{

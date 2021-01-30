@@ -94,6 +94,8 @@ textarea { display: block; margin-bottom: 10px; }
                             
                             ?>
                             <textarea name="msg" id="comment_text" class="form-control" cols="30" rows="3" required></textarea>
+                            <input type="hidden" name="csrf_token" value="<?php
+                                                    echo $_SESSION['token']; ?>">
                             <button class="btn btn-primary btn-sm pull-right" id="submit_comment">Submit message</button>
                     </form>
                     </div>
@@ -106,10 +108,11 @@ textarea { display: block; margin-bottom: 10px; }
                          echo '<div class="col-md-6 col-md-offset-3 post">';
                          echo '<h2>'.$row['user_name'].'</h2>';
                          echo '<p>'.$row['msg'].'</p>';
+                         echo '</hr><a href="msg.php?sid='.$row['id'].'">replay</a></br>';
                          if (isset($_SESSION['status'])) {
 
                              if ($row['user_id'] == $_SESSION['u_id']) {
-                                echo '<a href="deletemsg.php?sid='.$row['id'].'">delete</a>';
+                                echo '</hr><a href="deletemsg.php?sid='.$row['id'].'">delete</a></br>';
                              }
                          }
                          

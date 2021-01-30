@@ -1,5 +1,7 @@
 
+<?php
 
+?>
 <!DOCTYPE html >
 
 <html >
@@ -79,50 +81,56 @@ textarea { display: block; margin-bottom: 10px; }
 			<!-- end page -->
             <div class="container">
                 <div class="row">
+                <?php
+                     $q="select * from msgs where id =".$_GET['sid'];
+                     $res=mysqli_query($conn,$q) or die("wrong query");
+                     $row=mysqli_fetch_assoc($res);
+                        echo '<div class="col-md-6 col-md-offset-3 post">';
+                        echo '<h2>'.$row['user_name'].'</h2>';
+                        echo '<p>'.$row['msg'].'</p>';
+                        if (isset($_SESSION['status'])) {
+
+                            if ($row['user_id'] == $_SESSION['u_id']) {
+                            echo '<a href="deletemsg.php?sid='.$row['id'].'">delete</a>';
+                            }
+                        
+                        echo '</div>';
+                     }
+                    ?>
                     <div class="col-md-6 col-md-offset-3 post">
-                        <h2>Post title</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum nam illum ipsum corporis voluptatibus, perspiciatis possimus vitae consequuntur. Voluptate quisquam reprehenderit sapiente cupiditate esse, consequuntur vel dicta culpa dolorem rerum.</p>
+                    
+                    <form class="clearfix" action="postreplay.php" method="post" id="comment_form">
+                            <h4>Post a replay:</h4>
+                            <?php
+                                if(isset($_GET['error']))
+                                {
+                                    echo '<font color="red">'.$_GET['error'].'</font>';
+                                    echo '<br><br>';
+                                }
+                            
+                            ?>
+                            <textarea name="msg" id="comment_text" class="form-control" cols="30" rows="3" required></textarea>
+                            <input type="hidden" name="csrf_token" value="<?php
+                                                    echo $_SESSION['token']; ?>">
+                            <input type="hidden" name="msg_id" value="<?php echo $row['id']; ?>">
+                            <button class="btn btn-primary btn-sm pull-right" id="submit_comment">Submit replay</button>
+                    </form>
                     </div>
-
-                    <!-- comments section -->
-                    <div class="col-md-6 col-md-offset-3 comments-section">
-                        <!-- comment form -->
-                        <form class="clearfix" action="index.php" method="post" id="comment_form">
-                            <h4>Post a comment:</h4>
-                            <textarea name="comment_text" id="comment_text" class="form-control" cols="30" rows="3"></textarea>
-                            <button class="btn btn-primary btn-sm pull-right" id="submit_comment">Submit comment</button>
-                        </form>
-
-                        <!-- Display total number of comments on this post  -->
-                        <h2><span id="comments_count">0</span> Comment(s)</h2>
-                        <hr>
-                        <!-- comments wrapper -->
-                        <div id="comments-wrapper">
-                            <div class="comment clearfix">
-                                    <img src="profile.png" alt="" class="profile_pic">
-                                    <div class="comment-details">
-                                        <span class="comment-name">Melvine</span>
-                                        <span class="comment-date">Apr 24, 2018</span>
-                                        <p>This is the first reply to this post on this website.</p>
-                                        <a class="reply-btn" href="#" >reply</a>
-                                    </div>
-                                    <div>
-                                        <!-- reply -->
-                                        <div class="comment reply clearfix">
-                                            <img src="profile.png" alt="" class="profile_pic">
-                                            <div class="comment-details">
-                                                <span class="comment-name">Awa</span>
-                                                <span class="comment-date">Apr 24, 2018</span>
-                                                <p>Hey, why are you the first to comment on this post?</p>
-                                                <a class="reply-btn" href="#">reply</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                        </div>
-                        <!-- // comments wrapper -->
-                    </div>
-                    <!-- // comments section -->
+                    <?php
+                     $msg_id = $row['id'];
+                     $qs="select * from replies where msg_id='$msg_id' ORDER by created_at desc";
+			
+                     $ress=mysqli_query($conn,$qs) or die("wrong query");
+                     
+                     while ($rows=mysqli_fetch_assoc($ress)) {
+                         echo '<div class="col-md-6 col-md-offset-3 post">';
+                         echo '<h2>'.$rows['user_name'].'</h2>';
+                         echo '<p>'.$rows['replay'].'</p>';
+                         
+                         echo '</div>';
+                     }
+                    ?>
+                    
                 </div>
             </div>
 </body>
