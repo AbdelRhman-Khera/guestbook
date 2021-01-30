@@ -89,7 +89,9 @@ textarea { display: block; margin-bottom: 10px; }
                         echo '<h2>'.$row['user_name'].'</h2>';
                         echo '<p>'.$row['msg'].'</p>';
                         if (isset($_SESSION['status'])) {
-
+                            if ($row['user_id'] == $_SESSION['u_id']) {
+                                echo '</hr><a href="editmsg.php?sid='.$row['id'].'">edit</a></br>';
+                             }
                             if ($row['user_id'] == $_SESSION['u_id']) {
                             echo '<a href="deletemsg.php?sid='.$row['id'].'">delete</a>';
                             }

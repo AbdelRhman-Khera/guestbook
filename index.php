@@ -112,6 +112,9 @@ textarea { display: block; margin-bottom: 10px; }
                          if (isset($_SESSION['status'])) {
 
                              if ($row['user_id'] == $_SESSION['u_id']) {
+                                echo '</hr><a href="editmsg.php?sid='.$row['id'].'">edit</a></br>';
+                             }
+                             if ($row['user_id'] == $_SESSION['u_id']) {
                                 echo '</hr><a href="deletemsg.php?sid='.$row['id'].'">delete</a></br>';
                              }
                          }
