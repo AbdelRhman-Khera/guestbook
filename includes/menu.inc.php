@@ -2,6 +2,7 @@
 			<li class="current_page_item"><a href="index.php">Home</a></li>
 			
 			<?php 
+			// check if user logged in
 					if(isset($_SESSION['status']))
 					{
 						

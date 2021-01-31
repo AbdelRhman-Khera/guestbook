@@ -29,15 +29,18 @@ if(isset($_SESSION['status']))
 		}
 		else
 		{
-			
+			 
 			$now = date("Y-m-d H:i:s"); 
             $msg=$_POST['msg'];
             $id=$_POST['msg_id'];
-            $updated_at=$now;
-            
+			$updated_at=$now;
+			$q="select * from msgs where id='$id'";
+			$res=mysqli_query($conn,$q) or die("wrong query");
+			$row=mysqli_fetch_assoc($res);
+            if ($row['user_id'] == $_SESSION['u_id']) {
 			$query="update msgs set msg = '$msg' , updated_at = '$now' where id='$id'";
-			
-            mysqli_query($conn,$query) or die("Can't Execute Query...");
+			mysqli_query($conn,$query) or die("Can't Execute Query...");
+			}
             header("location:index.php");
 			
 		}

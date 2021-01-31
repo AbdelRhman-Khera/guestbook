@@ -62,6 +62,7 @@ textarea { display: block; margin-bottom: 10px; }
 						<div class="post">
 							<h1 class="title">Welcome  
 							<?php 
+								
 								if(isset($_SESSION['status']))
 								{
 									echo $_SESSION['name']; 
@@ -82,6 +83,7 @@ textarea { display: block; margin-bottom: 10px; }
             <div class="container">
                 <div class="row">
                 <?php
+					// get the msg by id
                      $q="select * from msgs where id =".$_GET['sid'];
                      $res=mysqli_query($conn,$q) or die("wrong query");
                      $row=mysqli_fetch_assoc($res);
