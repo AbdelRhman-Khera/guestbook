@@ -4,7 +4,7 @@ The task is to write a guestbook app in PHP with no third-party frameworks/libra
 The users should be able to:
 - Create an account
 - Log in
-- Log out
+- Log out.
 - Write/Edit/Delete Messages
 - And reply to messages
 
